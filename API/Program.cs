@@ -17,7 +17,7 @@ builder.Services.AddScoped<INebimIntegrationService,NebimIntegrationManager>();
 builder.Services.Configure<ConnectRequestModel>(builder.Configuration.GetSection("ConnectRequestModel"));
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowOrigin", builder => builder.WithOrigins("https://localhost:5001/"
+    options.AddPolicy("AllowOrigin", builder => builder.WithOrigins("https://localhost:4200/"
     ));
 });
 var app = builder.Build();
@@ -28,7 +28,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-app.UseCors(builder => builder.WithOrigins("https://localhost:5001/").AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
+app.UseCors(builder => builder.WithOrigins("https://localhost:4200/").AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

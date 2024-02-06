@@ -1,0 +1,41 @@
+<div class="container">
+    <div class="row">
+        <section class="col-3">
+            <h5 class="text-warning ms-3">Sort</h5>
+            <select class="form-select mb-4"(change)="onSortSelected($event)">
+            <option *ngFor="let sort of sortOptions" [value]="sort.value">{{sort.name}}</option>
+            </select>
+            <h5 class="text-warning ms-3"> Gender </h5>
+            <ul class="list-group my-3">
+                <li class="list-group-item" 
+                *ngFor="let category of categoryOptions"
+    
+                [class.active]="category.value==categorySelected"
+                [value]="category.value"
+                (click)="onCategorySelected(category.value)"
+                >{{category.name}}</li>
+    
+              </ul>
+              <h5 class="text-warning ms-3"> Categories </h5>
+              <ul class="list-group my-3">
+                  <li class="list-group-item" 
+                  *ngFor="let gr of groupOptions"
+      
+                  [class.active]="gr.value==groupSelected"
+                  [value]="gr.value"
+                  (click)="onGroupSelected(gr.value)"
+                  >{{gr.name}}</li>
+      
+                </ul>
+        </section>
+        <section class="col-9">
+
+
+            <div class="row row-cols-3 g-3 mb-4">
+                <div class="col" *ngFor="let product of products">
+                    <app-product-item [product]="product"></app-product-item>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>

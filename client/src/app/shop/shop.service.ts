@@ -34,4 +34,10 @@ export class ShopService {
 
     return this.http.get<ProductListResponse>(this.baseUrl+'products',{params:myparams});
   }
+
+  getProduct(id:string)
+  {   
+    
+    return this.http.get<Product>(this.baseUrl+'products/'+id);
+  }
 }

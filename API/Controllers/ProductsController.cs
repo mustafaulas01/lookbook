@@ -7,6 +7,7 @@ using Business;
 using Core.Dtos;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
+using RestSharp;
 
 namespace API.Controllers
 {
@@ -17,6 +18,8 @@ namespace API.Controllers
         private readonly IMemoryCache _memoryCache;
         private readonly INebimIntegrationService _nebimIntegrationService;
         private readonly string cacheKey="product_list";
+
+        private  List<GetB2BProductsResponse> productList=new List<GetB2BProductsResponse>();
 
         public ProductsController(INebimIntegrationService nebimIntegrationService,IMemoryCache memoryCache)
         {
@@ -30,7 +33,6 @@ namespace API.Controllers
         [FromQuery] int pageNumber=1,[FromQuery] int pageSize=12,[FromQuery] string? search=null,bool?isAscending=true)
         {
         
-            List<GetB2BProductsResponse> productList=new List<GetB2BProductsResponse>();
             var nebimParameter = new ProcedureRequest
             {
                 ProcName = "usp_B2B_Products",
@@ -117,6 +119,41 @@ namespace API.Controllers
        
             return Ok(pResponse);
        
+        }
+
+        [HttpGet]
+        [Route("{id}")]
+       
+        public IActionResult GetProduct([FromRoute] string id)
+        {
+                   
+            var nebimParameter = new ProcedureRequest
+            {
+                ProcName = "usp_B2B_Products",
+                Parameters = new List<ProcParameterModel>
+                {
+
+                }
+            };
+        
+            if (!_memoryCache.TryGetValue(cacheKey, out productList))
+            {
+               productList= _nebimIntegrationService.RunNebimProc<List<GetB2BProductsResponse>>(nebimParameter);
+              
+
+                var cacheOptions = new MemoryCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromHours(12)).SetPriority(CacheItemPriority.Normal)
+                    .SetAbsoluteExpiration(TimeSpan.FromHours(12));
+
+                _memoryCache.Set(cacheKey, productList, cacheOptions);
+            }
+            
+            var product=productList.FirstOrDefault(a=>a.ProductCode==id);
+
+            if(product!=null)
+            return Ok(product);
+            else
+            return NotFound(); 
+
         }
     }
 }

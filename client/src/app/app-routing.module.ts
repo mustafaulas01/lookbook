@@ -7,7 +7,7 @@ import { TestErrorComponent } from './core/test-error/test-error.component';
 
 
 const routes: Routes = [
-  {path:'',component:HomeComponent},
+  {path:'',component:HomeComponent,data: {breadcrumb:'Home'}},
   {path:'not-found',component:NotFoundComponent},
   {path:'test-error',component:TestErrorComponent},
   {path:'server-error',component:ServerErrorComponent},

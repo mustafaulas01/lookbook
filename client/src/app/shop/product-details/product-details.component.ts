@@ -12,19 +12,22 @@ import { BreadcrumbService } from 'xng-breadcrumb';
 export class ProductDetailsComponent implements OnInit {
 
   product?:Product;
- constructor(private shopService:ShopService,private activatedRoute:ActivatedRoute,private bvService:BreadcrumbService){}
+ constructor(private shopService:ShopService,private activatedRoute:ActivatedRoute,private bvService:BreadcrumbService){
+  this.bvService.set('@productDetails',' ')
+ }
 
   ngOnInit(): void {
     this.loadProduct()
   }
 
-  loadProduct(){
-    const id=this.activatedRoute.snapshot.paramMap.get('id');
-   if(id) this.shopService.getProduct(id).subscribe({
-    next:response=>{this.product=response;
-    this.bvService.set('@productDetails',this.product.productCode)
-    },
-    error:error=>console.log(error)
-   })
+  loadProduct() {
+    const id = this.activatedRoute.snapshot.paramMap.get('id');
+    if (id) this.shopService.getProduct(id).subscribe({
+      next: response => {
+        this.product = response;
+        this.bvService.set('@productDetails', this.product.productCode)
+      },
+      error: error => console.log(error)
+    })
   }
 }

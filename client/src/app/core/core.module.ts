@@ -8,6 +8,7 @@ import { TestErrorComponent } from './test-error/test-error.component';
 import { ToastrModule } from 'ngx-toastr';
 import { SectionHeaderComponent } from './section-header/section-header.component';
 import { BreadcrumbModule } from 'xng-breadcrumb';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 
 
@@ -26,8 +27,9 @@ import { BreadcrumbModule } from 'xng-breadcrumb';
       positionClass:'toast-bottom-right',
       preventDuplicates:true
     }),
-    BreadcrumbModule
+    BreadcrumbModule,
+    NgxSpinnerModule
   ],
-  exports:[NavbarComponent,SectionHeaderComponent]
+  exports:[NavbarComponent,SectionHeaderComponent,NgxSpinnerModule]
 })
 export class CoreModule { }

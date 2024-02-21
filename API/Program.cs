@@ -19,6 +19,7 @@ builder.Services.AddSingleton<IConnectionMultiplexer>(c=>
     return ConnectionMultiplexer.Connect(options);
 }
 );
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddHttpClient();

@@ -1,6 +1,12 @@
 <div class="row" *ngIf="product">
   <div class="col-6">
-  <img src="{{product.picturePath}}" alt="{{product.productName}}" class="w-100">
+    <div class="col-7">
+        <img style="margin-left: 50px; margin-top: 50px;" src="{{product.picturePath}}" alt="{{product.productName}}" class="img-fluid rounded-start">
+    </div>
+ <div class="col-5">
+    <div style="margin-top: 10px; margin-left: 50px;">Picture 1  ||   Picture 2  || Picture 3 || picture 4 </div>
+    
+ </div>
    </div>
 <div class="col-6 mt-5">
     <h2>{{product.productCode}}</h2>
